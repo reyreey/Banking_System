@@ -71,7 +71,7 @@ public class AccountDTO {
     /**
      * @return type of account
      */
-    public int getAccountType() {
+    public String getAccountType() {
         return accountType.getAccountType();
     }
 

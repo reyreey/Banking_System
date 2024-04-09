@@ -7,15 +7,15 @@ package org.example;
  **/
 public enum AccountType {
 
-    SAVINGS_ACCOUNT(1),
-    RECURRING_DEPOSIT_ACCOUNT(2),
-    FIXED_DEPOSIT_ACCOUNT(3);
+    SAVINGS_ACCOUNT("1"),
+    RECURRING_DEPOSIT_ACCOUNT("2"),
+    FIXED_DEPOSIT_ACCOUNT("3");
 
-    private final int accountType;
-    private AccountType(int accountType) {
+    private final String accountType;
+    private AccountType(String accountType) {
         this.accountType = accountType;
     }
-    public int getAccountType() {
+    public String getAccountType() {
         return accountType;
     }
 }

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.serialization;
 
 /**
  * @author : Reyreey
@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class WriteToJson {
+public class SerializeToJson {
     /**
      * serialize customer objects to json file
      * @param customerList

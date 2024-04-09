@@ -1,9 +1,7 @@
 package org.example.DTO;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.example.exceptions.BirthDateException;
-import org.example.exceptions.CheckAccountCustomerException;
 import org.example.exceptions.NationalIdException;
 import org.example.exceptions.NullDataException;
 
@@ -29,7 +27,7 @@ public class CustomerDTO {
     private String customerBirthDate;
     @OneToMany(mappedBy = "customerDTO")
     @JsonBackReference
-    private Collection<AccountDTO> customerAccounts=new ArrayList<AccountDTO>();
+    private Collection<AccountDTO> customerAccounts= new ArrayList<>();
 
     /**
      * @return customer ralated accounts

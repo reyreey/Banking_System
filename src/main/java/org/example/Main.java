@@ -2,8 +2,13 @@ package org.example;
 
 import org.example.DTO.AccountDTO;
 import org.example.DTO.CustomerDTO;
+import org.example.database.CreateTable;
+import org.example.database.SingletonDBConnection;
+import org.example.serialization.SerializeToDB;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.example.AccountGroup.groupByBalance;
@@ -24,6 +29,8 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
+
+        //read data from csv file and create objects
         System.out.println("************************************************");
         System.out.println("                  CUSTOMERS");
         System.out.println("************************************************");
@@ -37,25 +44,69 @@ public class Main {
         System.out.println("************************************************");
         groupByBalance(accountList);
 
+          //serialize objects to json and xml files
+//        System.out.println("************************************************");
+//        System.out.println("       WRITE CUSTOMERS TO JSON FILE DONE!");
+//        System.out.println("************************************************");
+//        //write customers to json file
+//        SerializeToJson.WriteCustomersTOJson(customerList);
+//        System.out.println("************************************************");
+//        System.out.println("       WRITE CUSTOMERS TO XML FILE DONE!");
+//        System.out.println("************************************************");
+//        //write customers to xml file
+//        SerializeToXml.WriteCustomersToXml(customerList);
+//        System.out.println("************************************************");
+//        System.out.println("       WRITE ACCOUNTS TO JSON FILE DONE!");
+//        System.out.println("************************************************");
+//        //write accounts to json file
+//        SerializeToJson.WriteAccountTOJson(accountList);
+//        System.out.println("************************************************");
+//        System.out.println("       WRITE ACCOUNTS TO XML FILE DONE!");
+//        System.out.println("************************************************");
+//        //write accounts to xml file
+//        SerializeToXml.WriteAccountsToXml(accountList);
+
+          //create tables
+//        System.out.println("************************************************");
+//        System.out.println("                 CREATE TABLES!");
+//        System.out.println("************************************************");
+//        try {
+//            Connection connection=SingletonDBConnection.getSingletonConn();
+
+//            //create CUSTOMER table
+//            CreateTable.createCustomerTable(connection);
+//            System.out.println("CUSTOMER TABLE CREATED!");
+
+//            //create ACCOUNT table
+//            CreateTable.createAccountTable(connection);
+//            System.out.println("ACCOUNT TABLE CREATED!");
+
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+
+        //insert objects to database
         System.out.println("************************************************");
-        System.out.println("       WRITE CUSTOMERS TO JSON FILE DONE!");
+        System.out.println("                 INSERT TO DB!");
         System.out.println("************************************************");
-        //write customers to json file
-        WriteToJson.WriteCustomersTOJson(customerList);
-        System.out.println("************************************************");
-        System.out.println("       WRITE CUSTOMERS TO XML FILE DONE!");
-        System.out.println("************************************************");
-        //write customers to xml file
-        WriteToXml.WriteCustomersToXml(customerList);
-        System.out.println("************************************************");
-        System.out.println("       WRITE ACCOUNTS TO JSON FILE DONE!");
-        System.out.println("************************************************");
-        //write accounts to json file
-        WriteToJson.WriteAccountTOJson(accountList);
-        System.out.println("************************************************");
-        System.out.println("       WRITE ACCOUNTS TO XML FILE DONE!");
-        System.out.println("************************************************");
-        //write accounts to xml file
-        WriteToXml.WriteAccountsToXml(accountList);
+
+        try {
+            Connection connection=SingletonDBConnection.getSingletonConn();
+
+            //insert customers in customerlist to CUSTOMER table
+            for (CustomerDTO customer:customerList) {
+                SerializeToDB.insertCustomerToDB(customer, connection);
+            }
+            System.out.println("CUSTOMER TABLE INSERTED!");
+
+            //insert accounts in accountlist to ACCOUNT table
+            for (AccountDTO account:accountList) {
+                SerializeToDB.insertAccountToDB(account, connection);
+            }
+            System.out.println("ACCOUNT TABLE INSERTED!");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

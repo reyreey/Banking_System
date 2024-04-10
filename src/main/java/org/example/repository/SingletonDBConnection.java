@@ -1,5 +1,7 @@
 package org.example.repository;
 
+import org.example.utility.encryption.Encryption;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -29,7 +31,7 @@ public class SingletonDBConnection {
         USER=bundle.getString("USER");
         PASS=bundle.getString("PASS");
         if (conn==null) {
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(DB_URL,USER,Encryption.decryptPassword(PASS));
 
         }
 

@@ -1,5 +1,8 @@
 package org.example.repository;
 
+import org.example.repository.queries.CreateTableQuery;
+import org.example.repository.queries.Query;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,15 +16,7 @@ public class CreateTable {
     public static void createCustomerTable(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
 
-        String query =  "CREATE TABLE  CUSTOMER " +
-                "(CUSTOMER_ID VARCHAR(255) not NULL, " +
-                " CUSTOMER_NAME VARCHAR(255), " +
-                " CUSTOMER_SURNAME VARCHAR(255), " +
-                " CUSTOMER_ADDRESS VARCHAR(255), " +
-                " CUSTOMER_ZIP_CODE VARCHAR(10), " +
-                " CUSTOMER_NATIONAL_ID VARCHAR(10), " +
-                " CUSTOMER_BIRTH_DATE VARCHAR(4), " +
-                " PRIMARY KEY ( CUSTOMER_ID ))";
+        String query = CreateTableQuery.CREATE_CUSTOMER_TABLE;
 
         statement.executeUpdate(query);
     }
@@ -29,15 +24,7 @@ public class CreateTable {
     public static void createAccountTable(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
 
-        String query =  "CREATE TABLE  ACCOUNT " +
-                "( ACCOUNT_NUMBER VARCHAR(255) not NULL, " +
-                " ACCOUNT_TYPE ENUM ('1','2','3'), " +
-                " ACCOUNT_CUSTOMER_ID VARCHAR(255) not NULL, " +
-                " ACCOUNT_LIMIT BIGINT, " +
-                " ACCOUNT_OPEN_DATE VARCHAR(8), " +
-                " ACCOUNT_BALANCE BIGINT, " +
-                " PRIMARY KEY ( ACCOUNT_NUMBER )," +
-                " FOREIGN KEY (ACCOUNT_CUSTOMER_ID) REFERENCES CUSTOMER(CUSTOMER_ID))";
+        String query =  CreateTableQuery.CREATE_ACCOUNT_TABLE;
 
         statement.executeUpdate(query);
 

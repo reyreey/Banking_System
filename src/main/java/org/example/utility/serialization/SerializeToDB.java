@@ -2,6 +2,8 @@ package org.example.utility.serialization;
 
 import org.example.DTO.AccountDTO;
 import org.example.DTO.CustomerDTO;
+import org.example.repository.queries.InsertQuery;
+import org.example.repository.queries.Query;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,8 +18,7 @@ public class SerializeToDB {
 
     public static void insertCustomerToDB(CustomerDTO customer, Connection connection) throws SQLException {
 
-        String query =
-                "INSERT INTO CUSTOMER VALUES (?, ?,? ,?, ?,?,?)";
+        String query = InsertQuery.INSERT_INTO_CUSTOMER_TABLE;
 
         PreparedStatement pstmt = connection
                 .prepareStatement(query);
@@ -35,8 +36,7 @@ public class SerializeToDB {
 
     public static void insertAccountToDB(AccountDTO account, Connection connection) throws SQLException {
 
-        String query =
-                "INSERT INTO ACCOUNT VALUES (?, ?,? ,?, ?,?)";
+        String query = InsertQuery.INSERT_INTO_ACCOUNT_TABLE;
 
         PreparedStatement pstmt = connection
                 .prepareStatement(query);

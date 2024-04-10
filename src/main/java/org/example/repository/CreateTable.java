@@ -1,10 +1,5 @@
-package org.example.database;
+package org.example.repository;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.example.AccountType;
-import org.example.DTO.CustomerDTO;
-
-import javax.persistence.ManyToOne;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;

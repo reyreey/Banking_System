@@ -1,4 +1,4 @@
-package org.example.serialization;
+package org.example.utility.serialization;
 
 import org.example.DTO.AccountDTO;
 import org.example.DTO.CustomerDTO;

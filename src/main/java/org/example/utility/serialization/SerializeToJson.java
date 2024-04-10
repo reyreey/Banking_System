@@ -1,4 +1,4 @@
-package org.example.serialization;
+package org.example.utility.serialization;
 
 /**
  * @author : Reyreey

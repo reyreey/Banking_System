@@ -2,9 +2,8 @@ package org.example;
 
 import org.example.DTO.AccountDTO;
 import org.example.DTO.CustomerDTO;
-import org.example.database.CreateTable;
-import org.example.database.SingletonDBConnection;
-import org.example.serialization.SerializeToDB;
+import org.example.repository.SingletonDBConnection;
+import org.example.utility.serialization.SerializeToDB;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,8 +11,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static org.example.AccountGroup.groupByBalance;
-import static org.example.CSVRead.AccountCSVReader.readAccount;
-import static org.example.CSVRead.CustomerCSVReader.readCustomer;
+import static org.example.utility.CSVRead.AccountCSVReader.readAccount;
+import static org.example.utility.CSVRead.CustomerCSVReader.readCustomer;
 
 /**
  * @author : Reyreey

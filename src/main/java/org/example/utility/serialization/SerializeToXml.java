@@ -1,4 +1,4 @@
-package org.example.serialization;
+package org.example.utility.serialization;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.example.DTO.AccountDTO;

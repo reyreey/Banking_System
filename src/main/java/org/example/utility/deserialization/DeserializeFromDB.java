@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.example.repository.queries.SelectQuery;
+import org.example.utility.encryption.Encryption;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,9 +40,9 @@ public class DeserializeFromDB {
             node.put("CUSTOMER_NAME", rs.getString("CUSTOMER_NAME"));
             node.put("CUSTOMER_SURNAME", rs.getString("CUSTOMER_SURNAME"));
             node.put("CUSTOMER_NATIONAL_ID", rs.getString("CUSTOMER_NATIONAL_ID"));
-            node.put("ACCOUNT_NUMBER", rs.getString("ACCOUNT_NUMBER"));
+            node.put("ACCOUNT_NUMBER", Encryption.encrypt(rs.getString("ACCOUNT_NUMBER")));
             node.put("ACCOUNT_OPEN_DATE", rs.getString("ACCOUNT_OPEN_DATE"));
-            node.put("ACCOUNT_BALANCE", rs.getString("ACCOUNT_BALANCE"));
+            node.put("ACCOUNT_BALANCE", Encryption.encrypt(rs.getString("ACCOUNT_BALANCE")));
 
             objectNodeList.add(node);
         }

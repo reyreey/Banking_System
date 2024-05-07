@@ -9,6 +9,7 @@ import org.example.DTO.AccountDTO;
 import org.example.DTO.CustomerDTO;
 import org.example.exceptions.*;
 import org.example.utility.DataError;
+import org.example.utility.encryption.Encryption;
 import org.example.utility.serialization.SerializeToJson;
 
 import java.io.IOException;
@@ -64,10 +65,10 @@ public class AccountCSVReader {
                         throw new CheckAccountCustomerException("invalid account customer id");
                     }
 
-                    account.setAccountNumber(csvRecord.get("ACCOUNT_NUMBER"));
+                    account.setAccountNumber(Encryption.decrypt(csvRecord.get("ACCOUNT_NUMBER")));
                     account.setAccountType(csvRecord.get("ACCOUNT_TYPE"));
                     account.setAccountLimit(csvRecord.get("ACCOUNT_LIMIT"));
-                    account.setAccountBalance(csvRecord.get("ACCOUNT_BALANCE"));
+                    account.setAccountBalance(Encryption.decrypt(csvRecord.get("ACCOUNT_BALANCE")));
                     account.setAccountCustomer(customersFoundedById.get(0));
                     account.setAccountCustomerId(csvRecord.get("ACCOUNT_CUSTOMER_ID"));
                     account.setAccountOpenDate(csvRecord.get("ACCOUNT_OPEN_DATE"));

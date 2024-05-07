@@ -10,6 +10,7 @@ import org.example.exceptions.BirthDateException;
 import org.example.exceptions.NationalIdException;
 import org.example.exceptions.NullDataException;
 import org.example.utility.DataError;
+import org.example.utility.encryption.Encryption;
 import org.example.utility.serialization.SerializeToJson;
 
 import java.io.File;
@@ -69,11 +70,11 @@ public class CustomerCSVReader {
 
                 try {
                     customer.setCustomerId(csvRecord.get("CUSTOMER_ID"));
-                    customer.setCustomerName(csvRecord.get("CUSTOMER_NAME"));
-                    customer.setCustomerSurname(csvRecord.get("CUSTOMER_SURNAME"));
+                    customer.setCustomerName(Encryption.decrypt(csvRecord.get("CUSTOMER_NAME")));
+                    customer.setCustomerSurname(Encryption.decrypt(csvRecord.get("CUSTOMER_SURNAME")));
                     customer.setCustomerAddress(csvRecord.get("CUSTOMER_ADDRESS"));
                     customer.setCustomerZipCode(csvRecord.get("CUSTOMER_ZIP_CODE")); ;
-                    customer.setCustomerNationalId(csvRecord.get("CUSTOMER_NATIONAL_ID"));
+                    customer.setCustomerNationalId(Encryption.decrypt(csvRecord.get("CUSTOMER_NATIONAL_ID")));
                     customer.setCustomerBirthDate(csvRecord.get("CUSTOMER_BIRTH_DATE"));
                 } catch (NullDataException | BirthDateException | NationalIdException e) {
                     logger.error(e.getMessage() + " (Customer Record Number " + csvRecord.get(0)+")");
@@ -102,79 +103,5 @@ public class CustomerCSVReader {
         SerializeToJson.WriteErrorTOJson(errorList);
 
         return customerList;
-    }
-
-//    public static void runMultiThreadCsvReadTest(String path) throws IOException, InterruptedException {
-//        var readAllStopwatch = createStarted();
-//
-//        var recordsFile = new File(path);
-//        var csvChunkFiles = splitRecordsFileIntoChunks(recordsFile);
-//
-//        var executor = newFixedThreadPool(10);
-//        var latch = new CountDownLatch(10);
-//
-//        var recordCounts = executor.invokeAll(
-//                csvChunkFiles.map(f ->
-//                        (Callable<Integer>)() -> {
-//                            var count = readCsvFile(f);
-//
-//                            latch.countDown();
-//
-//                            return count;
-//                        }).collect(toList())
-//        );
-//
-////        latch.await();
-//
-//        executor.shutdownNow();
-//
-//        var totalRecordsRead = recordCounts.stream()
-//                .mapToInt(rc -> {
-//                    try {
-//                        return rc.get();
-//                    } catch (Throwable ex) {
-//                        throw new RuntimeException(ex);
-//                    }
-//                }).sum();
-//
-//        readAllStopwatch.stop();
-//
-//        System.out.println(
-//                format(
-//                        "Reading %d records from CSV chunk files took %dms",
-//                        totalRecordsRead,
-//                        readAllStopwatch.getTime()
-//                )
-//        );
-//    }
-
-    private static int readCsvFile(File csvFileHandle) {
-        var readStopwatch = createStarted();
-
-        try (
-                var fileReader = new FileReader(csvFileHandle);
-                var csvFile = new CSVParser(fileReader, CSVFormat.EXCEL)
-        ) {
-            var numRecords = stream(
-                    spliteratorUnknownSize(csvFile.iterator(), CONCURRENT), true
-            ).mapToInt(r -> 1).sum();
-
-            readStopwatch.stop();
-
-            System.out.println(
-                    format(
-                            "Reading %d records from CSV file '%s' took %dms",
-                            numRecords,
-                            csvFileHandle.getName(),
-                            readStopwatch.getTime()
-                    )
-            );
-            return numRecords;
-        } catch (Throwable ex) {
-            throw new RuntimeException(
-                    format("Error reading from chunk file: %s", csvFileHandle.getName()),
-                    ex
-            );
-        }
     }
 }

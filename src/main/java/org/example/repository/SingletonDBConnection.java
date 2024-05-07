@@ -31,7 +31,7 @@ public class SingletonDBConnection {
         USER=bundle.getString("USER");
         PASS=bundle.getString("PASS");
         if (conn==null) {
-            conn = DriverManager.getConnection(DB_URL,USER,Encryption.decryptPassword(PASS));
+            conn = DriverManager.getConnection(DB_URL,USER,Encryption.decrypt(PASS));
 
         }
 

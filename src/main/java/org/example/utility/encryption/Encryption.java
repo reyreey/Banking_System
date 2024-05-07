@@ -20,7 +20,7 @@ public class Encryption {
         return textEncryptor.encrypt(inputPassword);
     }
 
-    public static String decryptPassword(String inputEncryptedPassword){
+    public static String decrypt(String inputEncryptedPassword){
         AES256TextEncryptor textEncryptor = new AES256TextEncryptor();
         textEncryptor.setPassword(ENCRYPTION_PASSWORD);
 

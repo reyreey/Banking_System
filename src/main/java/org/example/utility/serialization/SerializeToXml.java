@@ -1,5 +1,6 @@
 package org.example.utility.serialization;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.example.DTO.AccountDTO;
 import org.example.DTO.CustomerDTO;
@@ -22,5 +23,10 @@ public class SerializeToXml {
     public static void WriteAccountsToXml(List<AccountDTO> accountList) throws IOException {
         XmlMapper xmlMap = new XmlMapper();
         xmlMap.writeValue(new File("src/main/resources/outputFiles/XMLFiles/account.xml"), accountList);
+    }
+
+    public static void WriteResultsToXml(List<ObjectNode> objectNodeList) throws IOException {
+        XmlMapper xmlMap = new XmlMapper();
+        xmlMap.writeValue(new File("src/main/resources/outputFiles/XMLFiles/results.xml"), objectNodeList);
     }
 }

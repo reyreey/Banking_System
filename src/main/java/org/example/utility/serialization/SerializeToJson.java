@@ -67,4 +67,19 @@ public class  SerializeToJson {
             e.printStackTrace();
         }
     }
+
+    public static void WriteResultsTOJson(List<ObjectNode> objectNodeList){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            // Java objects to JSON file
+            mapper.writeValue(new File("src/main/resources/outputFiles/JSONFiles/result.json"), objectNodeList);
+
+            // Java objects to JSON string - pretty-print
+//            String jsonInString2 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
+
+//            System.out.println(jsonInString2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
